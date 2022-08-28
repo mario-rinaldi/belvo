@@ -1,0 +1,26 @@
+<h1>Bem Vindo(a)!</h1>
+
+<button onclick="loadBelvo()">Conectar Usando Belvo</button>
+
+<div id="belvo"></div>
+
+<script>
+function getAccessToken() {
+    return fetch(`http://localhost:3000/token`, {method: "GET"})
+        .then((response) => response.json())
+        .then((data) => data.access)
+        .catch((error) => console.error("Error:",error));
+}
+
+function openBelvoWidget(accessToken) {
+    belvoSDK.createWidget(accessToken, {
+        callback: (link, institution) => getInstitutionName(institution),
+        onExit: (event) => console.log(event),
+        onEvent: (event) => console.log(event)
+    }).build();
+}
+
+async function loadBelvo() {
+    getAccessToken().then(openBelvoWidget);
+}
+</script>
