@@ -14,10 +14,16 @@ function getAccessToken() {
 
 function openBelvoWidget(accessToken) {
     belvoSDK.createWidget(accessToken, {
-        callback: (link, institution) => getInstitutionName(institution),
+        callback: (link, institution) => successCallbackFunction(link, institution),
         onExit: (event) => console.log(event),
         onEvent: (event) => console.log(event)
     }).build();
+}
+
+function successCallbackFunction(link, institution) {
+    var socket = io()
+    data = {institution: institution, link: link}
+    socket.emit('callbackBelvo', JSON.stringify(data));
 }
 
 async function loadBelvo() {

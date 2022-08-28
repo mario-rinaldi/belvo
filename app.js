@@ -36,8 +36,10 @@ app.get("/token", (req, res) => {
     })
 });
 
-io.on('connection', function (data) {
-    console.log("Connection")
-});
+io.on("connection", (socket) => {
+    socket.on('callbackBelvo', (data) => {
+      console.log(data)
+    });
+  });
 
 server.listen(3000)
