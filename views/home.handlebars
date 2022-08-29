@@ -1,6 +1,4 @@
-<h1>Bem Vindo(a)!</h1>
-
-<button onclick="loadBelvo()">Conectar Usando Belvo</button>
+<body class="bg-gradient-primary"></body>
 
 <div id="belvo"></div>
 
@@ -36,3 +34,31 @@ async function loadBelvo() {
     getAccessToken().then(openBelvoWidget);
 }
 </script>
+
+
+    <div class="container">
+
+        <div class="card o-hidden border-10 shadow-lg my-5">
+            <div class="card-body p-0">
+                <!-- Nested Row within Card Body -->
+                <div class="row">
+                    <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
+                    <div class="col-lg-7">
+                        <div class="p-5">
+                            <div class="text-center">
+                                <h1 class="h4 text-gray-900 mb-4">Olá! 👋</h1>
+                            </div>
+                            <button onclick="loadBelvo()" class="btn btn-primary btn-user btn-block">
+                                Conectar minha conta bancária
+                            </button>
+                            <hr>
+                            <a href="https://www.linkedin.com/in/mlealrinaldi/?locale=en_US" class="btn btn-facebook btn-user btn-block" target="_blank">
+                                <img src="static/img/LI-In-Bug.svg" width="25" height="20"></img> Developer's LinkedIn Profile
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
