@@ -14,6 +14,9 @@ function getAccessToken() {
 
 function openBelvoWidget(accessToken) {
     belvoSDK.createWidget(accessToken, {
+        access_mode: 'recurrent', //single or recurrent
+        country_codes: ['BR'],
+        locale: 'pt',
         callback: (link, institution) => successCallbackFunction(link, institution),
         onExit: (event) => console.log(event),
         onEvent: (event) => console.log(event)

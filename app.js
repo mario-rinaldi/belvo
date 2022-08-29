@@ -25,7 +25,16 @@ var client = new belvo(
 );
 
 const options = {
-    //placeholder
+    widget: {
+        branding: {
+            company_icon: "https://belvo-mario.s3.amazonaws.com/Fictional_Logo.svg",
+            company_logo: "https://belvo-mario.s3.amazonaws.com/Fictional_Logo.svg",
+            company_name: "Banco Fictício",
+            company_benefit_header: "Aprovação imediata!",
+            company_benefit_content: "Conectar sua conta bancária aumenta suas chances de crédito e a aprovação pode ser imediata",
+            opportunity_loss: "Ao escolher não conectar a sua conta bancária, a aprovação levará o tempo padrão"
+        }
+    }
 }
 
 app.get("/token", (req, res) => {
