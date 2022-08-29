@@ -1,0 +1,10 @@
+<h1>Sucesso!</h1>
+<br>
+<div id="message"></div>
+<script>
+    var socket = io()
+    socket.emit('successPageLoad')
+    socket.on('institutionName', (institutionName) => {
+        document.getElementById('message').innerHTML = 'Você se conectou com sucesso à instituição ' + institutionName;
+    });
+</script>

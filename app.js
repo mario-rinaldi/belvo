@@ -36,10 +36,22 @@ app.get("/token", (req, res) => {
     })
 });
 
+let response = null;
+
 io.on("connection", (socket) => {
     socket.on('callbackBelvo', (data) => {
-      console.log(data)
+        response = JSON.parse(data)
+        socket.emit('redirect', '/links/' + response.link)
+    });
+    socket.on('successPageLoad', (data) => {
+        socket.emit('institutionName', response.institution)
     });
   });
+
+const userRouter = require('./routes/users')
+app.use('/users', userRouter)
+
+const linksRouter = require('./routes/links')
+app.use('/links', linksRouter)
 
 server.listen(3000)

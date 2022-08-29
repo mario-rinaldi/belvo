@@ -20,10 +20,13 @@ function openBelvoWidget(accessToken) {
     }).build();
 }
 
-function successCallbackFunction(link, institution) {
+async function successCallbackFunction(link, institution) {
     var socket = io()
     data = {institution: institution, link: link}
-    socket.emit('callbackBelvo', JSON.stringify(data));
+    socket.emit('callbackBelvo', JSON.stringify(data))
+    socket.on('redirect', (targetPath) => {
+        window.location.replace(window.location.origin + targetPath);
+    });
 }
 
 async function loadBelvo() {
