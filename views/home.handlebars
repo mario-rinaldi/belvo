@@ -4,7 +4,7 @@
 
 <script>
 function getAccessToken() {
-    return fetch(`http://localhost:3000/token`, {method: "GET"})
+    return fetch(`../token`, {method: "GET"})
         .then((response) => response.json())
         .then((data) => data.access)
         .catch((error) => console.error("Error:",error));
