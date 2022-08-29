@@ -63,4 +63,4 @@ app.use('/users', userRouter)
 const linksRouter = require('./routes/links')
 app.use('/links', linksRouter)
 
-server.listen(3000)
+server.listen(process.env.PORT || 3000)
