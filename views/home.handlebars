@@ -14,7 +14,7 @@ function openBelvoWidget(accessToken) {
     belvoSDK.createWidget(accessToken, {
         access_mode: 'recurrent', //single or recurrent
         country_codes: ['BR'],
-        locale: 'pt',
+        locale: 'en',
         callback: (link, institution) => successCallbackFunction(link, institution),
         onExit: (event) => console.log(event),
         onEvent: (event) => console.log(event)
@@ -46,10 +46,10 @@ async function loadBelvo() {
                     <div class="col-lg-7">
                         <div class="p-5">
                             <div class="text-center">
-                                <h1 class="h4 text-gray-900 mb-4">Olá! 👋</h1>
+                                <h1 class="h4 text-gray-900 mb-4">Oh, hi there! 👋</h1>
                             </div>
                             <button onclick="loadBelvo()" class="btn btn-primary btn-user btn-block">
-                                Conectar minha conta bancária
+                                Connect using Belvo®
                             </button>
                             <hr>
                             <a href="https://www.linkedin.com/in/mlealrinaldi/?locale=en_US" class="btn btn-facebook btn-user btn-block" target="_blank">

@@ -20,7 +20,7 @@
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                Escolher módulo da API
+                Choose API endpoint
             </div>
 
             <!-- Nav Item -->
@@ -92,7 +92,7 @@
                                 aria-labelledby="userDropdown">
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Sair
+                                    Leave
                                 </a>
                             </div>
                         </li>
@@ -107,7 +107,7 @@
                 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Dados da API Belvo</h1>
+                        <h1 id="institutionName" class="h3 mb-0 text-gray-800">Dados da API Belvo</h1>
                     </div>
 
                     <!-- Content Row -->
@@ -265,15 +265,15 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Pronto para sair?</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to leave?</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">Clique em "Sair" para encessar essa sessão e voltar para a página inicial.</div>
+                <div class="modal-body">Select "Leave" to close this session and start again at the home page.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-                    <a class="btn btn-primary" href="../">Sair</a>
+                    <a class="btn btn-primary" href="../">Leave</a>
                 </div>
             </div>
         </div>
@@ -288,5 +288,9 @@
     socket.emit('successPageLoad')
     socket.on('linkInfo', (data) => {
         document.getElementById('linkId').innerHTML = 'Link: <b>' + data.link + '</b>';
+        document.getElementById('institutionName').innerHTML = 'Connected to: <b>' + data.institution + '</b>';
     });
+
+
+    
 </script>
