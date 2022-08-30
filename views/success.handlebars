@@ -120,8 +120,8 @@
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                Earnings (Monthly)</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+                                                Account Owner Info</div>
+                                            <div id="ownerInfo" class="h5 mb-0 font-weight-bold text-gray-800"></div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -198,37 +198,37 @@
                             <!-- GRÁFICO DE BARRAS HORIZONTAIS -->
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Projects</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Incomes</h6>
                                 </div>
                                 <div class="card-body">
-                                    <h4 class="small font-weight-bold">Server Migration <span
-                                            class="float-right">20%</span></h4>
+                                    <h4 class="small font-weight-bold">Unable to load income data ☹ <span
+                                            class="float-right"></span></h4>
                                     <div class="progress mb-4">
-                                        <div class="progress-bar bg-danger" role="progressbar" style="width: 20%"
+                                        <div class="progress-bar bg-danger" role="progressbar" style="width: 0%"
                                             aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
-                                    <h4 class="small font-weight-bold">Sales Tracking <span
-                                            class="float-right">40%</span></h4>
+                                    <h4 class="small font-weight-bold"> <span
+                                            class="float-right"></span></h4>
                                     <div class="progress mb-4">
-                                        <div class="progress-bar bg-warning" role="progressbar" style="width: 40%"
+                                        <div class="progress-bar bg-warning" role="progressbar" style="width: 0%"
                                             aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
-                                    <h4 class="small font-weight-bold">Customer Database <span
-                                            class="float-right">60%</span></h4>
+                                    <h4 class="small font-weight-bold"> <span
+                                            class="float-right"></span></h4>
                                     <div class="progress mb-4">
-                                        <div class="progress-bar" role="progressbar" style="width: 60%"
+                                        <div class="progress-bar" role="progressbar" style="width: 0%"
                                             aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
-                                    <h4 class="small font-weight-bold">Payout Details <span
-                                            class="float-right">80%</span></h4>
+                                    <h4 class="small font-weight-bold"> <span
+                                            class="float-right"></span></h4>
                                     <div class="progress mb-4">
-                                        <div class="progress-bar bg-info" role="progressbar" style="width: 80%"
+                                        <div class="progress-bar bg-info" role="progressbar" style="width: 0%"
                                             aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
-                                    <h4 class="small font-weight-bold">Account Setup <span
-                                            class="float-right">100%</span></h4>
+                                    <h4 class="small font-weight-bold"> <span
+                                            class="float-right"></span></h4>
                                     <div class="progress">
-                                        <div class="progress-bar bg-success" role="progressbar" style="width: 100%"
+                                        <div class="progress-bar bg-success" role="progressbar" style="width: 0%"
                                             aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
                                 </div>
@@ -280,14 +280,7 @@
     </div>
     <!-- Page level plugins -->
     <script src="../static/vendor/chart.js/Chart.min.js"></script>
-<script>
-    var socket = io()
-    socket.emit('successPageLoad')
-    socket.on('linkInfo', (data) => {
-        document.getElementById('linkId').innerHTML = 'Link: <b>' + data.link + '</b>';
-        document.getElementById('institutionName').innerHTML = 'Connected to: <b>' + data.institution + '</b>';
-    });
-</script>
+
 
 
 
@@ -296,11 +289,18 @@ in a separate file but it's getting late
 and I really have to fininsh this assignment. 
 Sorry guys--> 
 
-
+<script>
+    var socket = io()
+    socket.on('userData', (data) => {
+        //document.getElementById('ownerInfo').innerHTML = '<b>' + data.owners + '</b>';
+        console.log(data)
+    });
+</script>
 
 
 <!-- Page level custom script - LINE AREA CHART -->
 <script>
+
     // Set new default font family and font color to mimic Bootstrap's default styling
 Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
 Chart.defaults.global.defaultFontColor = '#858796';
@@ -421,7 +421,10 @@ var myLineChart = new Chart(ctx, {
 });
 </script>
 
-<!-- Page level custom script - LINE AREA CHART -->
+
+
+
+<!-- Page level custom script - PIE CHART -->
 <script>
 // Set new default font family and font color to mimic Bootstrap's default styling
 Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
@@ -459,4 +462,16 @@ var myPieChart = new Chart(ctx, {
   },
 });
 
+</script>
+
+<script>
+    var socket = io()
+    setTimeout(successPageLoad, 3000)
+    function successPageLoad() {
+        socket.emit('successPageLoad')
+        socket.on('linkInfo', (data) => {
+            document.getElementById('linkId').innerHTML = 'Link: <b>' + data.link + '</b>';
+            document.getElementById('institutionName').innerHTML = 'Connected to: <b>' + data.institution + '</b>';
+        });
+    }
 </script>

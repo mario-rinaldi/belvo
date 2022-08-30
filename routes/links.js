@@ -2,8 +2,8 @@ const express = require("express");
 const router = express.Router();
 const app = express();
 const server = require('http').Server(app)
-const io = require('socket.io')(server)
 const fetch = require('node-fetch');
+const userData = new Object();
 
 router.get('/', (req, res) => {
     res.render('success')
@@ -13,7 +13,6 @@ router
     .route("/:linkId")
     .get((req, res) => {
         res.render('success')
-        //res.send(`Get User With Id ${req.params.linkId}`)
     })
 
 const env = {
@@ -27,67 +26,44 @@ router.param("linkId", (req, res, next, linkId) => {
 
         //call owners endpoint
         let ownersEndpoint = env.baseUrl + '/api/owners/?page=1&link=' + req.params.linkId
-        console.log(ownersEndpoint)
         fetch(ownersEndpoint, {
             headers: { 'Authorization': env.authorization }
         })
         .then(res => res.json())
         .then(json => {
-            console.log("Owners: " + JSON.stringify(json));
+            //console.log("Owners: " + JSON.stringify(json));
+            userData.owners = json;
+        });
+
+        //call accounts endpoint
+        let accountsEndpoint = env.baseUrl + '/api/accounts/?page=1&link=' + req.params.linkId
+        fetch(encodeURI(accountsEndpoint), {
+            headers: { 'Authorization': env.authorization }
+        })
+        .then(res => res.json())
+        .then(json => {
+            //console.log("Accounts: " + JSON.stringify(json));
+            userData.accounts = json;
+        })
+
+        //call transactions endpoint
+        let transactionsEndpoint = env.baseUrl + '/api/transactions/?page=1&link=' + req.params.linkId
+        fetch(encodeURI(transactionsEndpoint), {
+            headers: { 'Authorization': env.authorization }
+        })
+        .then(res => res.json())
+        .then(json => {
+            //console.log("Transactions: " + JSON.stringify(json));
+            userData.transactions = json;
+        })
+
+        app.get("/userData", (req, res) => {
+            return res.json(JSON.stringify(userData))
         });
 
     next()
+
 })
 
-
-
-/*
-function fetchBelvoAPI() {
-    //call owners endpoint
-    let ownersEndpoint = env.baseUrl + '/api/owners/?page=1&link=047685ce-2de2-4639-bc20-960364c31b08' + response.link
-    console.log(ownersEndpoint)
-    fetch(encodeURI(ownersEndpoint), {
-        headers: { 'Authorization': env.authorization }
-    })
-    .then(res => res.json())
-    .then(json => {
-        console.log("Owners: " + JSON.stringify(json));
-    });
-
-    //call accounts endpoint
-    let accountsEndpoint = env.baseUrl + '/api/accounts/?page=1&link=' + response.link
-    console.log(accountsEndpoint)
-    fetch(encodeURI(accountsEndpoint), {
-        headers: { 'Authorization': env.authorization }
-    })
-    .then(res => res.json())
-    .then(json => {
-        console.log("Accounts: " + JSON.stringify(json));
-    })
-
-    //call transactions endpoint
-    let transactionsEndpoint = env.baseUrl + '/api/transactions/?page=1&link=' + response.link.toString()
-    console.log(transactionsEndpoint)
-    fetch(encodeURI(transactionsEndpoint), {
-        headers: { 'Authorization': env.authorization }
-    })
-    .then(res => res.json())
-    .then(json => {
-        console.log("Transactions: " + JSON.stringify(json));
-    })
-
-    //call incomes endpoint
-    let incomesEndpoint = env.baseUrl + '/api/incomes/?page=1&account=' + response.link //aqui é o income de uma ACCOUNT ID
-    console.log(incomesEndpoint)
-    fetch(encodeURI(incomesEndpoint), {
-        headers: { 'Authorization': env.authorization }
-    })
-    .then(res => res.json())
-    .then(json => {
-        console.log("Incomes: " + JSON.stringify(json));
-    })
-
-}
-*/
 
 module.exports = router
