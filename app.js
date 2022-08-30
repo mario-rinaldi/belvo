@@ -53,7 +53,7 @@ io.on("connection", (socket) => {
         socket.emit('redirect', '/links/' + response.link)
     });
     socket.on('successPageLoad', (data) => {
-        socket.emit('institutionName', response.institution)
+        socket.emit('linkInfo', response)
     });
   });
 
