@@ -6,15 +6,24 @@ socket.on('linkInfo', (a, b) => {
     document.getElementById('linkId').innerHTML = 'Link: <b>' + a.link + '</b>';
     document.getElementById('institutionName').innerHTML = 'Connected to: <b>' + a.institution + '</b>';
     userData = b;
-    console.log(JSON.stringify(userData[0]));
-})
-/*
-socket.on('userData', (a) => {
-    userData = a;
-    console.log(JSON.stringify(userData[0]));
-})
-*/
+    console.log(JSON.parse(userData[0]).results[0].first_name);
 
+    //Builds cards with Account Owner Info 
+    document.getElementById('ownerName').innerHTML = '<b>' + 
+      JSON.parse(userData[0]).results[0].first_name + ' ' +
+      JSON.parse(userData[0]).results[0].second_last_name + ' ' + 
+      JSON.parse(userData[0]).results[0].last_name + '</b>'
+    document.getElementById('document_type').innerHTML = '<b>' + 
+      JSON.parse(userData[0]).results[0].document_id.document_type + '</b>'
+    document.getElementById('document_number').innerHTML = '<b>' + 
+      JSON.parse(userData[0]).results[0].document_id.document_number + '</b>'
+    document.getElementById('email').innerHTML = '<b>' + 
+      JSON.parse(userData[0]).results[0].email + '</b>'
+    document.getElementById('phone_number').innerHTML = '<b>' + 
+      JSON.parse(userData[0]).results[0].phone_number + '</b>'
+
+
+})
 
 // Set new default font family and font color to mimic Bootstrap's default styling
 Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
@@ -45,7 +54,14 @@ function number_format(number, decimals, dec_point, thousands_sep) {
   return s.join(dec);
 }
 
-// Area Chart Example
+function buildAreaChart() {
+
+}
+
+function buildPieChart() {
+
+}
+
 var ctx = document.getElementById("myAreaChart");
 var myLineChart = new Chart(ctx, {
   type: 'line',
