@@ -74,6 +74,7 @@ const env = {
 
 app.param("linkId", (req, res, next, linkId) => {
 
+    let reqBody = {"link": req.params.linkId};
     Promise.all([
         fetch(encodeURI(env.baseUrl + '/api/owners/?page=1&link=' + req.params.linkId), {
             headers: { 'Authorization': env.authorization }
@@ -83,6 +84,11 @@ app.param("linkId", (req, res, next, linkId) => {
         }),
         fetch(encodeURI(env.baseUrl + '/api/transactions/?page=1&link=' + req.params.linkId), {
             headers: { 'Authorization': env.authorization }
+        }),
+        fetch(encodeURI(env.baseUrl + '/api/incomes/'), {
+            method: 'POST',
+            body: JSON.stringify(reqBody),
+            headers: { 'Content-Type': 'application/json', 'Authorization': env.authorization }
         })
     ]).then((responses) => {
         Promise.all(responses.map(res => res.text()))

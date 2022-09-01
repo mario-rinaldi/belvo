@@ -169,7 +169,7 @@ socket.on('linkInfo', (a, b) => {
     document.getElementById('linkId').innerHTML = 'Link: <b>' + a.link + '</b>';
     document.getElementById('institutionName').innerHTML = 'Connected to: <b>' + a.institution + '</b>';
     userData = b;
-    console.log(JSON.parse(userData[1]).count);
+    console.log(userData[3]);
 
     //Builds cards with Account Owners API Info 
     document.getElementById('ownerName').innerHTML = '<b>' + 
@@ -212,12 +212,6 @@ socket.on('linkInfo', (a, b) => {
     document.getElementById('accountsTable').innerHTML = accountTable;
     document.getElementById('accountsSum').innerHTML = '<b>' + formatter.format(accountsSum) + '</b>';
 
-    //Builds area chart with Transactions API Info
-    let areaChartLabels = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];//new Array(); //dates
-    let areaChartData = [0, 1500, 5000, 15000, 10000, 20000, 15000, 25000, 20000, 30000, 25000, 150000];//new Array(); //currency values
-    //logic here
-    buildAreaChart(areaChartLabels, areaChartData);
-
     //Builds pie chart with Transactions API Info
     let pieChartData = new Array(); //currency values
     let pieChartBgColor = new Array();
@@ -239,15 +233,15 @@ socket.on('linkInfo', (a, b) => {
           htSum += JSON.parse(userData[2]).results[j].amount
         }
       }
-      pieChartData[i] = htSum;
+      pieChartData[i] = htSum.toFixed(2);
     }
     var colors = [
-      {"name": "text-secondary", "colorHex": "#858796", "hoverColorHex": "#60616f"},
       {"name": "text-success", "colorHex": "#1cc88a", "hoverColorHex": "#13855c"},
       {"name": "text-info", "colorHex": "#36b9cc", "hoverColorHex": "#258391"},
       {"name": "text-warning", "colorHex": "#f6c23e", "hoverColorHex": "#dda20a"},
       {"name": "text-danger", "colorHex": "#e74a3b", "hoverColorHex": "#be2617"},
       {"name": "text-dark", "colorHex": "#5a5c69", "hoverColorHex": "#373840"},
+      {"name": "text-secondary", "colorHex": "#858796", "hoverColorHex": "#60616f"},
       {"name": "text-light", "colorHex": "#f8f9fc", "hoverColorHex": "#c2cbe5"},
       {"name": "text-primary", "colorHex": "#4e73df", "hoverColorHex": "#224abe"}
     ]
@@ -260,9 +254,11 @@ socket.on('linkInfo', (a, b) => {
     }
     document.getElementById('pieChartLables').innerHTML = pieChartLables;
     buildPieChart(uniq, pieChartData, pieChartBgColor, pieChartHBgColor);
+
+    //Builds area chart with Incomes API Info
+    let areaChartLabels = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];//new Array(); //dates
+    let areaChartData = [0, 1500, 5000, 15000, 10000, 20000, 15000, 25000, 20000, 30000, 25000, 150000];//new Array(); //currency values
     
-
-
-
+    buildAreaChart(areaChartLabels, areaChartData);
 
 })
