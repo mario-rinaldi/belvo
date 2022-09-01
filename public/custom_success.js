@@ -255,8 +255,7 @@ socket.on('linkInfo', (a, b) => {
     buildPieChart(uniq, pieChartData, pieChartBgColor, pieChartHBgColor);
 
     //Builds area chart with Incomes API Info
-    let areaChartLabels = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];//new Array(); //dates
-    let areaChartData = [0, 1500, 5000, 15000, 10000, 20000, 15000, 25000, 20000, 30000, 25000, 150000];//new Array(); //currency values
+    let areaChartLabels = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
     let transactions = new Array();
     let idx = 0;
     for(let i = 0; i < JSON.parse(userData[3])[0].sources.length; i++) {
@@ -281,4 +280,7 @@ socket.on('linkInfo', (a, b) => {
     }
     document.getElementById('areaChartTitle').innerHTML = 'Income Overview ' + new Date().getUTCFullYear();
     buildAreaChart(areaChartLabels, incomeSum)
+    $(document).ready(function() {
+      $('#dataTable').DataTable();
+    });
 })
