@@ -4,9 +4,10 @@ const server = require('http').Server(app)
 const io = require('socket.io')(server)
 const fetch = require('node-fetch');
 var belvo = require('belvo').default;
-const userData = new Object();
-
 var exphbs = require('express-handlebars');
+
+let response;
+let userData;
 
 app.use('/static', express.static('public'));
 
@@ -46,22 +47,22 @@ app.get("/token", (req, res) => {
     })
 });
 
-let response;
-
 io.on("connection", (socket) => {
     socket.on('callbackBelvo', (data) => {
         response = data
         socket.emit('redirect', '/links/' + response.link)
-    });
+    })
     socket.on('successPageLoad', (data) => {
-        socket.emit('linkInfo', response)
-        socket.emit('userData', userData)
-    });
+        socket.emit('linkInfo', response, userData)
+    })
   });
 
 
 app.get('/links/:linkId', (req, res) => {
     res.render('success')
+    io.on("connection", (socket) => {
+        socket.emit('userData', userData)
+    });
 })
 
 const env = {
@@ -73,53 +74,24 @@ const env = {
 
 app.param("linkId", (req, res, next, linkId) => {
 
-        //call owners endpoint
-        let ownersEndpoint = env.baseUrl + '/api/owners/?page=1&link=' + req.params.linkId
-        fetch(ownersEndpoint, {
+    Promise.all([
+        fetch(encodeURI(env.baseUrl + '/api/owners/?page=1&link=' + req.params.linkId), {
+            headers: { 'Authorization': env.authorization }
+        }),
+        fetch(encodeURI(env.baseUrl + '/api/accounts/?page=1&link=' + req.params.linkId), {
+            headers: { 'Authorization': env.authorization }
+        }),
+        fetch(encodeURI(env.baseUrl + '/api/transactions/?page=1&link=' + req.params.linkId), {
             headers: { 'Authorization': env.authorization }
         })
-        .then(res => res.json())
-        .then(json => {
-            console.log("Owners: " + JSON.stringify(json));
-            userData.owners = json;
-        });
-
-        //call accounts endpoint
-        let accountsEndpoint = env.baseUrl + '/api/accounts/?page=1&link=' + req.params.linkId
-        fetch(encodeURI(accountsEndpoint), {
-            headers: { 'Authorization': env.authorization }
+    ]).then((responses) => {
+        Promise.all(responses.map(res => res.text()))
+        .then(texts => {
+            userData = texts
+            console.log(userData)  
+            next()  
         })
-        .then(res => res.json())
-        .then(json => {
-            console.log("Accounts: " + JSON.stringify(json));
-            userData.accounts = json;
-        })
-
-        //call transactions endpoint
-        let transactionsEndpoint = env.baseUrl + '/api/transactions/?page=1&link=' + req.params.linkId
-        fetch(encodeURI(transactionsEndpoint), {
-            headers: { 'Authorization': env.authorization }
-        })
-        .then(res => res.json())
-        .then(json => {
-            console.log("Transactions: " + JSON.stringify(json));
-            userData.transactions = json;
-        })
-
-        app.get("/userData", (req, res) => {
-            return res.json(JSON.stringify(userData))
-        });
-
-    next()
-
+    })
 })
-
-
-
-//const userRouter = require('./routes/users')
-//app.use('/users', userRouter)
-
-//const linksRouter = require('./routes/links')
-//app.use('/links', linksRouter)
 
 server.listen(process.env.PORT || 3000)
