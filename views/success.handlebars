@@ -1,3 +1,15 @@
+    <!-- Custom fonts for this template -->
+    <link href="../static/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="../static/css/sb-admin-2.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this page -->
+    <link href="../static/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    
 
 <body id="page-top">
 
@@ -84,8 +96,7 @@
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span id="linkId" class="mr-2 d-none d-lg-inline text-gray-600 small"></span>
-                                <img class="img-profile rounded-circle"
-                                    src="../static/img/undraw_profile.svg">
+                                <img class="img-profile rounded-circle" src="../static/img/undraw_profile.svg">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -104,7 +115,7 @@
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-                
+
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 id="institutionName" class="h3 mb-0 text-gray-800">Dados da API Belvo</h1>
@@ -135,9 +146,11 @@
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div id="document_type" class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                            <div id="document_type"
+                                                class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                                 document_type</div>
-                                            <div id="document_number" class="h5 mb-0 font-weight-bold text-gray-800">document_number</div>
+                                            <div id="document_number" class="h5 mb-0 font-weight-bold text-gray-800">
+                                                document_number</div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-info-circle fa-2x text-gray-300"></i>
@@ -171,7 +184,8 @@
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                                 Phone Number</div>
-                                            <div id="phone_number" class="h5 mb-0 font-weight-bold text-gray-800">phone_number</div>
+                                            <div id="phone_number" class="h5 mb-0 font-weight-bold text-gray-800">
+                                                phone_number</div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-phone fa-2x text-gray-300"></i>
@@ -224,6 +238,41 @@
                     </div>
                     <!-- Content Row -->
                     <div class="row">
+
+                        <!-- DataTales Example -->
+                        <div class="container-fluid">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Accounts Owned</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                            <thead>
+                                                <tr>
+                                                    <th>Name</th>
+                                                    <th>Category</th>
+                                                    <th>Currency</th>
+                                                    <th>Balance</th>
+                                                </tr>
+                                            </thead>
+                                            <tfoot>
+                                                <tr>
+                                                    <th></th>
+                                                    <th></th>
+                                                    <th><b>TOTAL:</b></th>
+                                                    <th id="accountsSum">Total Balance</th>
+                                                </tr>
+                                            </tfoot>
+                                            <tbody = id="accountsTable">
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
                         <!-- Content Column -->
                         <div class="col-lg-6 mb-4">
 
@@ -239,33 +288,29 @@
                                         <div class="progress-bar bg-danger" role="progressbar" style="width: 0%"
                                             aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
-                                    <h4 class="small font-weight-bold"> <span
-                                            class="float-right"></span></h4>
+                                    <h4 class="small font-weight-bold"> <span class="float-right"></span></h4>
                                     <div class="progress mb-4">
                                         <div class="progress-bar bg-warning" role="progressbar" style="width: 0%"
                                             aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
-                                    <h4 class="small font-weight-bold"> <span
-                                            class="float-right"></span></h4>
+                                    <h4 class="small font-weight-bold"> <span class="float-right"></span></h4>
                                     <div class="progress mb-4">
                                         <div class="progress-bar" role="progressbar" style="width: 0%"
                                             aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
-                                    <h4 class="small font-weight-bold"> <span
-                                            class="float-right"></span></h4>
+                                    <h4 class="small font-weight-bold"> <span class="float-right"></span></h4>
                                     <div class="progress mb-4">
                                         <div class="progress-bar bg-info" role="progressbar" style="width: 0%"
                                             aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
-                                    <h4 class="small font-weight-bold"> <span
-                                            class="float-right"></span></h4>
+                                    <h4 class="small font-weight-bold"> <span class="float-right"></span></h4>
                                     <div class="progress">
                                         <div class="progress-bar bg-success" role="progressbar" style="width: 0%"
                                             aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
                                 </div>
                             </div>
-                            
+
                         </div>
                         <div class="col-lg-6 mb-4">
                         </div>
@@ -311,5 +356,22 @@
         </div>
     </div>
 
-<script src="../static/vendor/chart.js/Chart.min.js"></script>
-<script src="../static/custom_success.js"></script>
+    <script src="../static/vendor/chart.js/Chart.min.js"></script>
+    <script src="../static/custom_success.js"></script>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="../static/vendor/jquery/jquery.min.js"></script>
+    <script src="../static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="../static/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="../static/js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="../static/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="../static/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="../static/js/demo/datatables-demo.js"></script>

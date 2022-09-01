@@ -1,3 +1,8 @@
+// Create our number formatter.
+var formatter = new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: 'USD',
+});
 
 var userData;
 var socket = io()
@@ -6,9 +11,9 @@ socket.on('linkInfo', (a, b) => {
     document.getElementById('linkId').innerHTML = 'Link: <b>' + a.link + '</b>';
     document.getElementById('institutionName').innerHTML = 'Connected to: <b>' + a.institution + '</b>';
     userData = b;
-    console.log(JSON.parse(userData[0]).results[0].first_name);
+    console.log(JSON.parse(userData[1]).count);
 
-    //Builds cards with Account Owner Info 
+    //Builds cards with Account Owners API Info 
     document.getElementById('ownerName').innerHTML = '<b>' + 
       JSON.parse(userData[0]).results[0].first_name + ' ' +
       JSON.parse(userData[0]).results[0].second_last_name + ' ' + 
@@ -22,6 +27,20 @@ socket.on('linkInfo', (a, b) => {
     document.getElementById('phone_number').innerHTML = '<b>' + 
       JSON.parse(userData[0]).results[0].phone_number + '</b>'
 
+    //Builds table with Accounts API Info
+    var accountsSum = 0;
+    var accountTable = "";
+    for(let i = 0; i < JSON.parse(userData[1]).count; i++) {
+      accountTable += '<tr>' +
+                          '<th>'+ JSON.parse(userData[1]).results[i].name +'</th>' +
+                          '<th>'+ JSON.parse(userData[1]).results[i].category +'</th>' +
+                          '<th>'+ JSON.parse(userData[1]).results[i].currency +'</th>' +
+                          '<th>'+ formatter.format(JSON.parse(userData[1]).results[i].balance.current) +'</th>' +
+                      '</tr>'
+      accountsSum += JSON.parse(userData[1]).results[i].balance.current
+    }
+    document.getElementById('accountsTable').innerHTML = accountTable;
+    document.getElementById('accountsSum').innerHTML = '<b>' + formatter.format(accountsSum) + '</b>';
 
 })
 
