@@ -169,7 +169,6 @@ socket.on('linkInfo', (a, b) => {
     document.getElementById('linkId').innerHTML = 'Link: <b>' + a.link + '</b>';
     document.getElementById('institutionName').innerHTML = 'Connected to: <b>' + a.institution + '</b>';
     userData = b;
-    console.log(userData[3]);
 
     //Builds cards with Account Owners API Info 
     document.getElementById('ownerName').innerHTML = '<b>' + 
@@ -258,7 +257,28 @@ socket.on('linkInfo', (a, b) => {
     //Builds area chart with Incomes API Info
     let areaChartLabels = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];//new Array(); //dates
     let areaChartData = [0, 1500, 5000, 15000, 10000, 20000, 15000, 25000, 20000, 30000, 25000, 150000];//new Array(); //currency values
-    
-    buildAreaChart(areaChartLabels, areaChartData);
+    let transactions = new Array();
+    let idx = 0;
+    for(let i = 0; i < JSON.parse(userData[3])[0].sources.length; i++) {
+      for(let j = 0; j < JSON.parse(userData[3])[0].sources[i].transactions.length; j++) {
+        transactions[idx] = { "date": JSON.parse(userData[3])[0].sources[i].transactions[j].value_date,
+                              "month": new Date(JSON.parse(userData[3])[0].sources[i].transactions[j].value_date).getUTCMonth() + 1,
+                              "year": new Date(JSON.parse(userData[3])[0].sources[i].transactions[j].value_date).getUTCFullYear(),
+                              "amount": JSON.parse(userData[3])[0].sources[i].transactions[j].amount
+                            }
+        idx++
+      }
+    }
 
+    let incomeSum = new Array(12);
+    for(let i = 0; i < 12; i++) {
+      incomeSum[i] = 0;
+      for(let j = 0; j < transactions.length; j++){
+        if(transactions[j].month == i + 1 && transactions[j].year == new Date().getUTCFullYear()) {
+          incomeSum[i] += parseFloat(transactions[j].amount);
+        }
+      }
+    }
+    document.getElementById('areaChartTitle').innerHTML = 'Income Overview ' + new Date().getUTCFullYear();
+    buildAreaChart(areaChartLabels, incomeSum)
 })
