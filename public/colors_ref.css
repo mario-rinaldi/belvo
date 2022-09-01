@@ -1,0 +1,71 @@
+.text-primary {
+    color: #4e73df !important;
+}
+
+a.text-primary:hover,
+a.text-primary:focus {
+    color: #224abe !important;
+}
+
+.text-secondary {
+    color: #858796 !important;
+}
+
+a.text-secondary:hover,
+a.text-secondary:focus {
+    color: #60616f !important;
+}
+
+.text-success {
+    color: #1cc88a !important;
+}
+
+a.text-success:hover,
+a.text-success:focus {
+    color: #13855c !important;
+}
+
+.text-info {
+    color: #36b9cc !important;
+}
+
+a.text-info:hover,
+a.text-info:focus {
+    color: #258391 !important;
+}
+
+.text-warning {
+    color: #f6c23e !important;
+}
+
+a.text-warning:hover,
+a.text-warning:focus {
+    color: #dda20a !important;
+}
+
+.text-danger {
+    color: #e74a3b !important;
+}
+
+a.text-danger:hover,
+a.text-danger:focus {
+    color: #be2617 !important;
+}
+
+.text-light {
+    color: #f8f9fc !important;
+}
+
+a.text-light:hover,
+a.text-light:focus {
+    color: #c2cbe5 !important;
+}
+
+.text-dark {
+    color: #5a5c69 !important;
+}
+
+a.text-dark:hover,
+a.text-dark:focus {
+    color: #373840 !important;
+}
